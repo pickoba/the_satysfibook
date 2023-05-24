@@ -57,22 +57,21 @@ module BookClass = struct
 
   module Book :> sig
 
-    val document 'a 'b: 'a -> block-text -> document
-      constraint 'b = (|
-        title : inline-text,
-        author : inline-text,
-        contact : inline-text,
-        date : inline-text,
-        printed-by : option inline-text,
-      |)
-      constraint 'a = (|
+    val document :
+      (|
         title : inline-text,
         author : inline-text,
         preface : block-text,
         bibliography : list (string * bib-item),
         top-page : option block-text,
-        copyright-page : 'b,
-      |)
+        copyright-page : (|
+          title : inline-text,
+          author : inline-text,
+          contact : inline-text,
+          date : inline-text,
+          printed-by : option inline-text,
+        |),
+      |) -> block-text -> document
 
     val font-latin-roman  : font * float * float
     val font-latin-italic : font * float * float
